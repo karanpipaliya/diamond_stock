@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Your existing CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            width: calc(25% - 20px);
+            box-sizing: border-box;
+            font-size: 12px;
+            position: relative;
+            text-align: center;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .inner-card {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: #f9f9f9;
+            display: block;
+            margin: 0;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .lab-treatment {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background-color: #59a52a;
+            padding: 5px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background-color: #d5d5d5;
+            font-weight: bold;
+            padding: 4px;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            border-radius: 8px;
+        }
+
+        .price-left {
+            text-align: left;
+            flex-grow: 1;
+            font-size: 12px;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .price-right {
+            font-weight: bold;
+            font-size: 22px;
+            text-align: right;
+            min-width: 70px;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .bold-text {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .report-stock {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .inquiry-btn {
+            background-color: #0a730e;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .inquiry-btn:hover {
+            background-color: #59a52a;
+        }
+
+        .image-video-btn {
+            background-image: url('360hover.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1;
+            background-color: transparent;
+            transition: background-image 0.3s ease;
+        }
+
+        .image-video-btn:hover {
+            background-image: url('360video.png');
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .modal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 0;
+            border-radius: 10px;
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        iframe {
+            margin-top: 15px;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .close {
+            position: absolute;
+            top: 0px;
+            right: 10px;
+            font-size: 45px;
+            color: #000000;
+            cursor: pointer;
+        }
+
+        .video-not-found {
+            font-size: 18px;
+            color: #f44336;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #videoModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+           
+        }
+
+        nav {
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-top: 60px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #575757;
+        }
+
+        /* Filters Section */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters select, .filters input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            flex: 1 1 150px;
+        }
+
+        .filters button {
+            padding: 8px 16px;
+            background-color: #0a730e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .filters button:hover {
+            background-color: #59a52a;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" id="naturalLink">NATURAL</a></li>
+            <li><a href="#" id="lgdLink">LGD</a></li>
+        </ul>
+    </nav>
+
+    <!-- Filters Section -->
+    <div class="filters">
+        <select id="labFilter">
+            <option value="">Select Lab</option>
+            <option value="GIA">GIA</option>
+            <option value="IGI">IGI</option>
+            <option value="HRD">HRD</option>
+            <option value="Non Cert">Non Cert</option>
+        </select>
+        <select id="shapeFilter">
+            <option value="">Select Shape</option>
+            <!-- Dynamically populated -->
+        </select>
+        <select id="weightRangeFilter">
+            <option value="">Select Weight Range</option>
+            <option value="0.30-0.39">0.30 to 0.39</option>
+            <option value="0.40-0.49">0.40 to 0.49</option>
+            <option value="0.50-0.59">0.50 to 0.59</option>
+            <option value="0.60-0.69">0.60 to 0.69</option>
+            <option value="0.70-0.79">0.70 to 0.79</option>
+            <option value="0.80-0.89">0.80 to 0.89</option>
+            <option value="0.90-0.99">0.90 to 0.99</option>
+            <option value="1.00-1.09">1.00 to 1.09</option>
+            <option value="1.10-1.19">1.10 to 1.19</option>
+            <option value="1.20-1.49">1.20 to 1.49</option>
+            <option value="1.50-1.99">1.50 to 1.99</option>
+            <option value="2.00-2.99">2.00 to 2.99</option>
+            <option value="3.00-3.99">3.00 to 3.99</option>
+            <option value="4.00-4.99">4.00 to 4.99</option>
+            <option value="5.00+">5.00+</option>
+        </select>
+        <select id="colorFilter">
+            <option value="">Select Color</option>
+            <!-- Dynamically populated -->
+        </select>
+        <select id="clarityFilter">
+            <option value="">Select Clarity</option>
+            <!-- Dynamically populated -->
+        </select>
+        <select id="cutFilter">
+            <option value="">Select Cut</option>
+            <!-- Dynamically populated -->
+        </select>
+        <select id="polishFilter">
+            <option value="">Select Polish</option>
+            <!-- Dynamically populated -->
+        </select>
+        <select id="symmetryFilter">
+            <option value="">Select Symmetry</option>
+            <!-- Dynamically populated -->
+        </select>
+        <button id="applyFilters">Apply Filters</button>
+    </div>
+
+    <div id="cardContainer" class="card-container"></div>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <iframe id="videoFrame" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <div id="modalDetails" class="modal-details"></div>
+            <div id="videoNotFoundMessage" class="video-not-found hidden">
+                Video Not Found
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/17OxYOg47SB8pGvdf6zMpcYBo5gRbdzWFksDI_gpbMqU/gviz/tq?tqx=out:csv&sheet=Sheet1';
+        let diamondsData = [];
+        let currentType = 'NATURAL'; // Default type
+
+        async function fetchData() {
+            try {
+                const response = await fetch(CSV_URL);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.text();
+                const rows = data.split('\n').map(row => row.split(',').map(cell => cell.replace(/"/g, '').trim()));
+                const headers = rows[0];
+                const entries = rows.slice(1).filter(row => row.some(cell => cell.trim() !== ''));
+
+                diamondsData = entries.map(row => {
+                    return {
+                        stockId: row[headers.indexOf('Stock #')],
+                        report: row[headers.indexOf('Report #')] || "None",
+                        shape: row[headers.indexOf('Shape')].split(' ')[0],
+                        weight: row[headers.indexOf('Weight')],
+                        color: row[headers.indexOf('Color')],
+                        clarity: row[headers.indexOf('Clarity')],
+                        cut: row[headers.indexOf('Cut')] || "",
+                        polish: row[headers.indexOf('Polish')],
+                        symmetry: row[headers.indexOf('Symmetry')],
+                        fluorescence: row[headers.indexOf('Fluorescence Intensity')],
+                        depth: row[headers.indexOf('Depth %')],
+                        table: row[headers.indexOf('Table %')],
+                        measurements: row[headers.indexOf('Measurements')],
+                        discount: row[headers.indexOf('Discount')],
+                        pricePerCarat: row[headers.indexOf('Price Per Carat')],
+                        price: row[headers.indexOf('Final Price')],
+                        treatment: row[headers.indexOf('Treatment')],
+                        lab: row[headers.indexOf('Lab')] || "Non Cert",
+                        imageUrl: row[headers.indexOf('Diamond Image')] || 'https://cdn.pixabay.com/photo/2022/03/05/10/08/beauty-7048849_1280.jpg',
+                        videoUrl: row[headers.indexOf('Video URL')] || '',
+                        type: row[headers.indexOf('TYPE')] || ''
+                    };
+                });
+
+                // Populate dropdowns with unique values
+                populateDropdown('shapeFilter', 'shape', true); // Sort shapes with "Round" first
+                populateDropdown('cutFilter', 'cut');
+                populateDropdown('polishFilter', 'polish');
+                populateDropdown('symmetryFilter', 'symmetry');
+                populateDropdown('clarityFilter', 'clarity', false, ['FL', 'IF', 'VVS1', 'VVS2', 'VS1', 'VS2', 'SI1', 'SI2', 'I1', 'I2', 'I3']); // Sort clarity from high to low
+                populateDropdown('colorFilter', 'color'); // Populate color dropdown
+
+                displayDiamonds(currentType); // Display default type on page load
+            } catch (error) {
+                console.error('Error fetching or processing data:', error);
+            }
+        }
+
+        // Function to populate dropdowns with unique values
+        function populateDropdown(dropdownId, property, sortRoundFirst = false, predefinedOrder = []) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.innerHTML = `<option value="">Select ${property.charAt(0).toUpperCase() + property.slice(1)}</option>`;
+
+            // Get unique values
+            let uniqueValues = [...new Set(diamondsData.map(diamond => diamond[property].toLowerCase()))];
+
+            // Sort shapes with "Round" first
+            if (sortRoundFirst) {
+                uniqueValues.sort((a, b) => {
+                    if (a === 'round') return -1;
+                    if (b === 'round') return 1;
+                    return a.localeCompare(b);
+                });
+            }
+
+            // Sort clarity based on predefined order
+            if (predefinedOrder.length > 0) {
+                uniqueValues = predefinedOrder.filter(value => uniqueValues.includes(value.toLowerCase()));
+            }
+
+            // Add options to dropdown
+            uniqueValues.forEach(value => {
+                if (value) { // Ensure value is not empty
+                    dropdown.innerHTML += `<option value="${value}">${value.toUpperCase()}</option>`;
+                }
+            });
+        }
+
+        function displayDiamonds(type, filters = {}) {
+            const cardContainer = document.getElementById('cardContainer');
+            cardContainer.innerHTML = '';
+
+            const filteredDiamonds = diamondsData.filter(diamond => {
+                if (diamond.type !== type) return false;
+
+                // Normalize filter values and diamond values for comparison
+                if (filters.lab && diamond.lab.toLowerCase() !== filters.lab.toLowerCase()) return false;
+                if (filters.shape && diamond.shape.toLowerCase() !== filters.shape.toLowerCase()) return false;
+                if (filters.weightRange && !isInWeightRange(diamond.weight, filters.weightRange)) return false;
+                if (filters.color && diamond.color.toLowerCase() !== filters.color.toLowerCase()) return false;
+                if (filters.clarity && diamond.clarity.toLowerCase() !== filters.clarity.toLowerCase()) return false;
+                if (filters.cut && diamond.cut.toLowerCase() !== filters.cut.toLowerCase()) return false;
+                if (filters.polish && diamond.polish.toLowerCase() !== filters.polish.toLowerCase()) return false;
+                if (filters.symmetry && diamond.symmetry.toLowerCase() !== filters.symmetry.toLowerCase()) return false;
+
+                return true;
+            });
+
+            filteredDiamonds.forEach(diamond => {
+                const card = createCard(diamond);
+                cardContainer.appendChild(card);
+            });
+        }
+
+        // Function to check if weight is within the selected range
+        function isInWeightRange(weight, range) {
+            const [min, max] = range.split('-').map(Number);
+            if (max) {
+                return weight >= min && weight <= max;
+            } else {
+                return weight >= min;
+            }
+        }
+
+        function createCard(diamond) {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const innerCard = document.createElement('div');
+            innerCard.className = 'inner-card';
+            innerCard.style.backgroundImage = `url(${diamond.imageUrl})`;
+
+            const videoButton = document.createElement('button');
+            videoButton.className = 'image-video-btn';
+            videoButton.onclick = () => showVideo(diamond.videoUrl, `${diamond.shape} | ${diamond.weight} | ${diamond.color} | ${diamond.clarity} | ${diamond.cut ? diamond.cut : '-'} | ${diamond.polish} | ${diamond.symmetry} | ${diamond.fluorescence}`);
+
+            innerCard.appendChild(videoButton);
+            card.appendChild(innerCard);
+
+            const labTreatment = document.createElement('div');
+            labTreatment.className = 'lab-treatment';
+            labTreatment.innerHTML = `${diamond.lab} | ${diamond.treatment}`;
+            card.appendChild(labTreatment);
+
+            const reportStock = document.createElement('div');
+            reportStock.className = 'report-stock';
+            if (diamond.report !== "None") {
+                reportStock.innerHTML = `
+                    <div>Report #: <a href="${diamond.report.startsWith('LG') ? 'https://www.igi.org/verify-your-report/?r=' + diamond.report : '#'}" target="_blank">${diamond.report}</a></div>
+                    <div>Stock #: ${diamond.stockId}</div>
+                `;
+            } else {
+                reportStock.innerHTML = `
+                    <div>Report #: None</div>
+                    <div>Stock #: ${diamond.stockId}</div>
+                `;
+            }
+            card.appendChild(reportStock);
+
+            const details = document.createElement('div');
+            details.className = 'bold-text details-text';
+            details.style.whiteSpace = 'nowrap';
+            details.innerHTML = `${diamond.shape} | ${diamond.weight} | ${diamond.color} | ${diamond.clarity} | ${abbreviate(diamond.cut)} | ${abbreviate(diamond.polish)} | ${abbreviate(diamond.symmetry)} | ${diamond.fluorescence}`;
+            card.appendChild(details);
+
+            const extraDetails = document.createElement('div');
+            extraDetails.className = 'extra-details-text';
+            extraDetails.innerHTML = `D: ${diamond.depth} | T: ${diamond.table} | M: ${diamond.measurements}`;
+            card.appendChild(extraDetails);
+
+            const pricing = document.createElement('div');
+            pricing.className = 'highlight';
+            pricing.innerHTML = `<div class="price-left">Discount: ${diamond.discount}<br>Price/ct: ${diamond.pricePerCarat}</div><div class="price-right">$${diamond.price}</div>`;
+            card.appendChild(pricing);
+
+            const inquiryButton = document.createElement('button');
+            inquiryButton.className = 'inquiry-btn';
+            inquiryButton.textContent = 'Send Inquiry';
+            inquiryButton.onclick = () => {
+                window.open(`https://wa.me/?text=Stock ID: ${diamond.stockId}%0aPrice: $${diamond.price}`, '_blank');
+            };
+            card.appendChild(inquiryButton);
+
+            return card;
+        }
+
+        function abbreviate(value) {
+            value = value.toUpperCase();
+            if (value === 'EXCELLENT') return 'EX';
+            if (value === 'VERY GOOD') return 'VG';
+            if (value === 'IDEAL') return 'ID';
+            return value;
+        }
+
+        function showVideo(videoUrl, details) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            const modalDetails = document.getElementById('modalDetails');
+            const videoNotFoundMessage = document.getElementById('videoNotFoundMessage');
+
+            if (videoUrl) {
+                iframe.src = videoUrl; // Set video URL
+                modalDetails.textContent = details; // Set details
+                videoNotFoundMessage.classList.add('hidden'); // Hide "Video Not Found" message
+                modal.style.display = 'flex'; // Show modal
+            } else {
+                iframe.src = ''; // Clear iframe src
+                modalDetails.textContent = ''; // Clear details
+                videoNotFoundMessage.classList.remove('hidden'); // Show "Video Not Found" message
+                modal.style.display = 'none'; // Hide modal
+            }
+        }
+
+        // Close modal when close button is clicked
+        document.getElementById('closeModal').addEventListener('click', () => {
+            const modal = document.getElementById('videoModal');
+            modal.style.display = 'none'; // Hide modal
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = ''; // Clear iframe src to stop video playback
+        });
+
+        // Close modal when clicking outside the modal
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('videoModal');
+            if (event.target === modal) {
+                modal.style.display = 'none'; // Hide modal
+                const iframe = document.getElementById('videoFrame');
+                iframe.src = ''; // Clear iframe src to stop video playback
+            }
+        });
+
+        // Debugging: Check if modal is hidden on page load
+        window.addEventListener('load', () => {
+            const modal = document.getElementById('videoModal');
+            console.log('Modal display on load:', modal.style.display); // Should be "none"
+        });
+
+        // Event Listeners for Filters
+        document.getElementById('applyFilters').addEventListener('click', () => {
+            const filters = {
+                lab: document.getElementById('labFilter').value,
+                shape: document.getElementById('shapeFilter').value.toLowerCase(),
+                weightRange: document.getElementById('weightRangeFilter').value,
+                color: document.getElementById('colorFilter').value.toLowerCase(),
+                clarity: document.getElementById('clarityFilter').value.toLowerCase(),
+                cut: document.getElementById('cutFilter').value.toLowerCase(),
+                polish: document.getElementById('polishFilter').value.toLowerCase(),
+                symmetry: document.getElementById('symmetryFilter').value.toLowerCase()
+            };
+            displayDiamonds(currentType, filters);
+        });
+
+        document.getElementById('lgdLink').addEventListener('click', () => {
+            currentType = 'LG';
+            displayDiamonds(currentType);
+        });
+
+        document.getElementById('naturalLink').addEventListener('click', () => {
+            currentType = 'NATURAL';
+            displayDiamonds(currentType);
+        });
+
+        fetchData();
+    </script>
+</body>
+</html>
