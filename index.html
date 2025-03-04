@@ -3,16 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Document</title>
-    <script src="one.js"></script>
-=======
     <title>Diamond Inventory</title>
     <link rel="stylesheet" href="styles.css">
-    
->>>>>>> e0c268c (Your changes in submodule)
 </head>
 <body>
+    <!-- Navbar -->
+<nav class="modern-navbar">
+    <div class="navbar-center">
+      <img src="nodata.png" alt="Company Logo" class="logo">
+      <span class="company-name">kp international</span>
+    </div>
+  </nav>
+  
+  <!-- Filter Links -->
+  <div class="filter-links">
+    <a href="#" id="filterIcon" class="filter-icon">
+      <img src="adjust.png" alt="Filter Icon" class="filter-icon-img">Filter</a>
+    <a href="#" id="naturalLink" class="filter-link" data-type="NATURAL">Natural Diamond</a>
+    <a href="#" id="lgdLink" class="filter-link active" data-type="LG">Lab Grown Diamond</a>
+    <a href="#" id="looseDiamondLink" data-type="LOOSE">Loose Diamond</a>
+
+</div>
+  
+<div id="tabInfo">
+    <h2 id="tabName"></h2>
+    <p id="diamondCount">Total Diamonds: 0</p>
+</div>
+
+    <!-- Filter Drawer -->
+    <div id="filterDrawer" class="drawer">
+        <span class="close-drawer" id="closeDrawer">&times;</span>
+        <h2>Filters</h2>
+
+        <div id="typeToggle" class="toggle-container">
+            <button id="naturalToggle" class="toggle-btn" data-type="NATURAL">Natural</button>
+            <button id="lgdToggle" class="toggle-btn active" data-type="LG">LGD</button>
+            <button id="looseDiamondToggle" class="toggle-btn" data-type="LOOSE">Loose</button>
+
+        </div>
+
+        <div class="filters">
+            <select id="labFilter">
+                <option value="">Select Lab</option>
+                <option value="GIA">GIA</option>
+                <option value="IGI">IGI</option>
+                <option value="HRD">HRD</option>
+                <option value="Non Cert">Non Cert</option>
+            </select>
+            <select id="shapeFilter">
+                <option value="">Select Shape</option>
+            </select>
+            <select id="weightRangeFilter">
+                <option value="">Select Weight Range</option>
+                <option value="0.30-0.39">0.30 to 0.39</option>
+                <option value="0.40-0.49">0.40 to 0.49</option>
+                <option value="0.50-0.59">0.50 to 0.59</option>
+                <option value="0.60-0.69">0.60 to 0.69</option>
+                <option value="0.70-0.79">0.70 to 0.79</option>
+                <option value="0.80-0.89">0.80 to 0.89</option>
+                <option value="0.90-0.99">0.90 to 0.99</option>
+                <option value="1.00-1.09">1.00 to 1.09</option>
+                <option value="1.10-1.19">1.10 to 1.19</option>
+                <option value="1.20-1.49">1.20 to 1.49</option>
+                <option value="1.50-1.99">1.50 to 1.99</option>
+                <option value="2.00-2.99">2.00 to 2.99</option>
+                <option value="3.00-3.99">3.00 to 3.99</option>
+                <option value="4.00-4.99">4.00 to 4.99</option>
+                <option value="5.00+">5.00+</option>
+            </select>
+            <select id="colorFilter">
+                <option value="">Select Color</option>
+            </select>
+            <select id="clarityFilter">
+                <option value="">Select Clarity</option>
+            </select>
+            <select id="cutFilter">
+                <option value="">Select Cut</option>
+            </select>
+            <select id="polishFilter">
+                <option value="">Select Polish</option>
+            </select>
+            <select id="symmetryFilter">
+                <option value="">Select Symmetry</option>
+            </select>
+            <div class="filter-buttons">
+                
+                <button id="resetFilters">Reset Filters</button>
+                <button id="applyFilters">Apply Filters</button>
+
+            </div>
+        </div>
+    </div>
+
     
+
+    <!-- Card Container -->
+    <div id="cardContainer" class="card-container">
+        <!-- Cards will be dynamically added here -->
+    </div>
+
+    <!-- No Data Message -->
+    <div id="noDataMessage" class="no-data-message hidden">
+        <img src="nodata.png" alt="No Data" class="no-data-icon">
+        <span>No Diamond found for the selected filters</span>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <iframe id="videoFrame" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <div id="modalDetails" class="modal-details"></div>
+            <div id="videoNotFoundMessage" class="video-not-found hidden">
+                Video Not Found
+            </div>
+        </div>
+    </div>
+
+    <button id="scrollToTopBtn">
+        <img src="up-arrow.png" alt="Go to top">
+    </button>
+    
+
+    <script src="script.js"></script>
 </body>
+
+<!-- Footer Section -->
+<footer>
+    <div class="footer-container">
+        <!-- Left Part: Address -->
+        <div class="footer-left">
+            <h3>Address</h3>
+            <p>
+                123 Diamond Street,<br>
+                Mumbai, Maharashtra,<br>
+                India - 400001
+            </p>
+        </div>
+
+        <!-- Right Part: Social Links -->
+        <div class="footer-right">
+            <div class="social-row">
+                <a href="https://www.instagram.com/yourprofile" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                    Instagram
+                </a>
+            </div>
+            <div class="social-row">
+                <a href="https://www.facebook.com/yourprofile" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+                    Facebook
+                </a>
+            </div>
+            <div class="social-row">
+                <a href="https://www.yourwebsite.com" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png" alt="Website">
+                    Website
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Your Name -->
+    <div class="footer-bottom">
+    <p>
+        Made with ❤️ by <strong><a href="https://wa.me/+917779003590" target="_blank">KARAN P. PIPALIYA</a></strong>
+        &nbsp;&nbsp;|&nbsp;&nbsp; <!-- Add space and a separator -->
+        © 2023 Your Name. All rights reserved.
+    </p>
+</div>
+</footer>
 </html>
